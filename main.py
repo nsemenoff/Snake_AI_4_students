@@ -3,7 +3,7 @@ from snake_game import Snake
 import numpy as np
 
 if __name__ == '__main__':
-    game = Snake(20) # Create game object
+    game = Snake(10) # Create game object
     status = game.read_status() # read status sample
     agent = Agent(status) # Create agent object
     epochs = 1000
@@ -24,8 +24,10 @@ if __name__ == '__main__':
 
         if finish > 0:
             agent.train(status_list, control_list, finish)
+            status_list.clear()
+            control_list.clear()
         elif finish<0:
-            status_list = []
-            control_list = []
+            status_list.clear()
+            control_list.clear()
 
     agent.save_nn()

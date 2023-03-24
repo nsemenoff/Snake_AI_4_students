@@ -15,6 +15,7 @@ class Snake:
         self.step = 20
         self.loop = N*N/10
         self.snake = []
+        self.food = self.make_segment('yellow','circle')
         self.make_snake()
 
 ###########################################################################
@@ -24,16 +25,18 @@ class Snake:
             snake_segment.penup()
             snake_segment.color(color)
             snake_segment.penup()
+            snake_segment.goto(0,0)
             return snake_segment
 
 ###########################################################################
     def make_snake(self):
-        for seg in self.snake: del(seg)
+        for seg in self.snake:
+            seg.reset()
+#        self.snake.clear()
+        self.snake = []
         for i in range(3):
             if i>0:  self.snake.append(self.make_segment('gray','turtle'))
             else:    self.snake.append(self.make_segment('black','turtle'))
-
-        self.food = self.make_segment('yellow','circle')
         self.move_food()
 
 ###########################################################################
@@ -64,9 +67,8 @@ class Snake:
             return 1 # status = ERROR
 
         if self.snake[0].distance(self.food) < self.step:
-            self.move_food(self)
-            snake_segment = self.make_segment('gray','turtle')
-            self.snake.append()
+            self.move_food()
+            self.snake.append(self.make_segment('gray','turtle'))
             return 2 # status = FOOD
 
         self.screen.update()
@@ -75,7 +77,7 @@ class Snake:
         if self.loop < 1:
             self.loop = 100;
             self.make_snake()
-            return -1
+            return 1
 
         return 0
 
