@@ -3,10 +3,10 @@ from snake_game import Snake
 import numpy as np
 
 if __name__ == '__main__':
-    game = Snake(30) # Create game object
+    game = Snake(10) # Create game object
     status = game.read_status() # read status sample
     agent = Agent(status) # Create agent object
-    epochs = 1000
+    epochs = 100000
 
     status_list = []
     control_list = []

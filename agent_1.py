@@ -1,5 +1,3 @@
-#import torch 
-#import random 
 import numpy as np
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -28,17 +26,19 @@ class Agent:
             return
         print('Training data...')
         # prepare data
+        print('Before: ',control_list)
         if finish==1: # wall kick
             print(len(control_list))
             print(len(control_list[0][0]))
             for i in range(len(control_list)):
                q = np.argmax(control_list[i])
-               control_list[i][0][q] -= 0.1;
+               control_list[i][0][q] -= 1/len(control_list[0][0])*i;
         elif finish==2: # apple eating
             for i in range(len(control_list)):
                 q = np.argmax(control_list[i])
-                control_list[i][0][q] += 0.2;
+                control_list[i][0][q] += 10.0 / status_list[i][0][6];
         # train
+        print('After: ',control_list)
         x = np.array(status_list, dtype='float32')
         y = np.array(control_list, dtype='float32')
         self.model.train_on_batch(x, y)

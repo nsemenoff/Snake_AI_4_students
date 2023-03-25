@@ -15,6 +15,14 @@ class Snake:
         self.step = 20
         self.loop = N*N/10
         self.snake = []
+        brd = t.Turtle()
+        brd.hideturtle()
+        brd.penup()
+        brd.goto(-20*N-10, -10*N-10)
+        brd.pendown()
+        for i in range(4):
+            brd.forward(20*N+20)
+            brd.right(90)
         self.food = self.make_segment('yellow','circle')
         self.make_snake()
 
@@ -31,11 +39,29 @@ class Snake:
 ###########################################################################
     def make_snake(self):
         for seg in self.snake:
+#            self.screen.remove(seg)
             seg.clear()
-        self.snake.clear()
-        self.food.clear()
-        self.snake = []
+            seg.reset()
+        for element in self.screen.turtles():
+            element.reset()
+            element.clear()
+#            self.screen.remove(element)
+#        self.screen.remove(food)
 #        self.screen.clear()
+#        del(self.snake)
+#        self.food.clear()
+#        del(self.food)
+
+        brd = t.Turtle()
+        brd.hideturtle()
+        brd.penup()
+        brd.goto(-10*self.N-10, -10*self.N-10)
+        brd.pendown()
+        for i in range(4):
+            brd.forward(20*self.N+20)
+            brd.left(90)
+
+        self.snake = []
         for i in range(3):
             if i>0:  self.snake.append(self.make_segment('gray','turtle'))
             else:    self.snake.append(self.make_segment('black','turtle'))
@@ -95,6 +121,7 @@ class Snake:
         dist_tail = self.snake[0].distance(tail)
         dist_apple_x = self.food.xcor() - x
         dist_apple_y = self.food.ycor() - y
+        h = np.abs( dist_apple_x ) + np.abs( dist_apple_y )
         if h == 0:
             # move right
             status = [dist_x,
