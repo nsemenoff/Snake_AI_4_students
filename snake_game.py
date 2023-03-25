@@ -31,12 +31,15 @@ class Snake:
 ###########################################################################
     def make_snake(self):
         for seg in self.snake:
-            seg.reset()
-#        self.snake.clear()
+            seg.clear()
+        self.snake.clear()
+        self.food.clear()
         self.snake = []
+#        self.screen.clear()
         for i in range(3):
             if i>0:  self.snake.append(self.make_segment('gray','turtle'))
             else:    self.snake.append(self.make_segment('black','turtle'))
+        self.food = self.make_segment('yellow','circle')
         self.move_food()
 
 ###########################################################################
@@ -86,36 +89,42 @@ class Snake:
         h = self.snake[0].heading()
         x = self.snake[0].xcor()
         y = self.snake[0].ycor()
+        dist_x = 20*self.N - x
+        dist_y = 20*self.N - y
+        tail = self.snake[len(self.snake)-1]
+        dist_tail = self.snake[0].distance(tail)
+        dist_apple_x = self.food.xcor() - x
+        dist_apple_y = self.food.ycor() - y
         if h == 0:
             # move right
-            status = [20*self.N - x,
-                      20*self.N - y,
-                      x - 20*self.N,
-                      self.food.xcor() - x,
-                      self.food.ycor() - y,
-                      6]
+            status = [dist_x,
+                      dist_y,
+                      dist_tail,
+                      dist_apple_x,
+                      dist_apple_y,
+                      h]
         elif h == 90:
             # move up
-            status = [20*self.N - y,
-                      y - 20*self.N,
-                      20*self.N - y,
-                      self.food.xcor() - x,
-                      self.food.ycor() - y,
-                      6]
+            status = [dist_x,
+                      dist_y,
+                      dist_tail,
+                      dist_apple_x,
+                      dist_apple_y,
+                      h]
         elif h == 180:
             # move up
-            status = [20*self.N - x,
-                      20*self.N - y,
-                      x - 20*self.N,
-                      self.food.xcor() - x,
-                      self.food.ycor() - y,
-                      6]
+            status = [dist_x,
+                      dist_y,
+                      dist_tail,
+                      dist_apple_x,
+                      dist_apple_y,
+                      h]
         else:
             # move down
-            status = [20*self.N - x,
-                      20*self.N - y,
-                      x - 20*self.N,
-                      self.food.xcor() - x,
-                      self.food.ycor() - y,
-                      6]
+            status = [dist_x,
+                      dist_y,
+                      dist_tail,
+                      dist_apple_x,
+                      dist_apple_y,
+                      h]
         return status
