@@ -11,10 +11,9 @@ using files:
 
 # main idea
 
-> while True:
->        control = agent.move(status)
->        finish = game.move(control)
->        status = game.read_status()
+> while True: \
+>  control = agent.move(status) # think about next move \
+>  status, finish = game.move(control) # look at the game, make one move and read status  \
 
 i.e. we make one step control by agent (neural network), then pass this control to the snake game and read status for the next step control by agent
 
