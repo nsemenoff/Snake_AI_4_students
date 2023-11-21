@@ -3,7 +3,7 @@ from snake_game import Snake
 import numpy as np
 
 if __name__ == '__main__':
-    game = Snake(10) # Create game object
+    game = Snake(10) # Create game object, add come comments
     status = game.read_status() # read status sample
     agent = Agent(status) # Create agent object
     epochs = 100000
